@@ -1,3 +1,5 @@
+process.env.NODE_ENV = "test";
+
 const db = require("../db");
 const User = require("../models/user");
 const Message = require("../models/message");
@@ -50,14 +52,15 @@ describe("Test User class", function () {
 
   test("can get", async function () {
     let u = await User.get("test");
-    expect(u).toEqual({
-      username: "test",
-      first_name: "Test",
-      last_name: "Testy",
-      phone: "+14155550000",
-      last_login_at: expect.any(Date),
-      join_at: expect.any(Date),
-    });
+    expect(u).toEqual(
+      expect.objectContaining({
+        username: "test",
+        first_name: "Test",
+        last_name: "Testy",
+        phone: "+14155550000",
+        join_at: expect.any(Date),
+      }));
+    expect([expect.any(Date), null]).toContain(u.last_login_at);
   });
 
   test("can get all", async function () {
