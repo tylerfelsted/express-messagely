@@ -2,7 +2,6 @@ const express = require("express");
 
 const router = new express.Router;
 const ExpressError = require('../expressError');
-const User = require('../models/user');
 const Message = require('../models/message')
 const {ensureLoggedIn} = require('../middleware/auth');
 

@@ -77,6 +77,10 @@ class User {
       WHERE username=$1`,
       [username]);
 
+    if(results.rows.length === 0) {
+      throw new ExpressError(`No such user: ${username}`, 404);
+    }
+
     return results.rows[0];
   }
 
